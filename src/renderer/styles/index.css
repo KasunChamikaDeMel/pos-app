@@ -1,0 +1,28 @@
+/* Additional utility styles */
+.page-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 3rem;
+  color: var(--text-tertiary);
+  font-size: 0.875rem;
+}
+
+/* Print styles for receipts */
+@media print {
+  body {
+    background: white;
+  }
+  
+  .sidebar,
+  .header,
+  .btn,
+  .no-print {
+    display: none !important;
+  }
+}
