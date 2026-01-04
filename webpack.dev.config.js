@@ -4,11 +4,12 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
   mode: 'development',
   entry: './src/renderer/index.tsx',
-  target: 'electron-renderer',
+  target: 'web', // Changed from 'electron-renderer' to 'web' for browser development
   devServer: {
     port: 3000,
     hot: true,
     open: false,
+    historyApiFallback: true,
     headers: {
       'Access-Control-Allow-Origin': '*'
     }
@@ -49,7 +50,15 @@ module.exports = {
   resolve: {
     extensions: ['.tsx', '.ts', '.js', '.jsx'],
     alias: {
-      '@': path.resolve(__dirname, 'src')
+      '@': path.resolve(__dirname, 'src'),
+      '@renderer': path.resolve(__dirname, 'src/renderer'),
+      '@main': path.resolve(__dirname, 'src/main')
+    },
+    fallback: {
+      "events": false,
+      "fs": false,
+      "path": false,
+      "worker_threads": false
     }
   },
   plugins: [

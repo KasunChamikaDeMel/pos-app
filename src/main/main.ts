@@ -31,16 +31,11 @@ function createWindow(): void {
     mainWindow.webContents.openDevTools();
   } else {
     const indexPath = path.join(__dirname, 'index.html');
-    console.log('Loading file from:', indexPath);
-    console.log('File exists:', fs.existsSync(indexPath));
     
     mainWindow.loadFile(indexPath).catch(err => {
       console.error('Failed to load file:', err);
       dialog.showErrorBox('Load Error', `Failed to load application: ${err.message}`);
     });
-    
-    // Open DevTools in production for debugging (remove in final release)
-    mainWindow.webContents.openDevTools();
   }
 
   mainWindow.once('ready-to-show', () => {
@@ -51,14 +46,16 @@ function createWindow(): void {
     mainWindow = null;
   });
 
-  // Log errors for debugging
-  mainWindow.webContents.on('did-fail-load', (event, errorCode, errorDescription) => {
-    console.error('Failed to load:', errorCode, errorDescription);
-  });
+  // Log errors for debugging (development only)
+  if (process.env.NODE_ENV === 'development') {
+    mainWindow.webContents.on('did-fail-load', (event, errorCode, errorDescription) => {
+      console.error('Failed to load:', errorCode, errorDescription);
+    });
 
-  mainWindow.webContents.on('console-message', (event, level, message) => {
-    console.log(`[Renderer ${level}]:`, message);
-  });
+    mainWindow.webContents.on('console-message', (event, level, message) => {
+      console.log(`[Renderer ${level}]:`, message);
+    });
+  }
 }
 
 // License verification
