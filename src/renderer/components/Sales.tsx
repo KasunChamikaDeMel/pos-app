@@ -42,7 +42,7 @@ const VirtualKeyboard: React.FC<{
     ['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P'],
     ['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L'],
     ['Z', 'X', 'C', 'V', 'B', 'N', 'M', '.', '@'],
-    ['!', '?', '-', '_', '+', '=', '/', '\\', '*']
+    ['!', '?', '-', '_', '+', '=', '/', '\\', '*'],
   ];
 
   return (
@@ -52,13 +52,13 @@ const VirtualKeyboard: React.FC<{
       borderRadius: '8px',
       padding: '10px',
       height: '100%',
-      overflowY: 'auto'
+      overflowY: 'auto',
     }}>
       <div style={{
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
-        marginBottom: '8px'
+        marginBottom: '8px',
       }}>
         <h4 style={{ color: '#f1f5f9', margin: 0, fontSize: '12px' }}>Virtual Keyboard</h4>
         <button
@@ -70,19 +70,19 @@ const VirtualKeyboard: React.FC<{
             borderRadius: '4px',
             padding: '2px 8px',
             cursor: 'pointer',
-            fontSize: '10px'
+            fontSize: '10px',
           }}
         >
           Close
         </button>
       </div>
-      
+
       {rows.map((row, rowIndex) => (
         <div key={rowIndex} style={{
           display: 'flex',
           gap: '3px',
           marginBottom: '3px',
-          justifyContent: 'center'
+          justifyContent: 'center',
         }}>
           {row.map(key => (
             <button
@@ -98,7 +98,7 @@ const VirtualKeyboard: React.FC<{
                 fontSize: '12px',
                 fontWeight: '500',
                 minWidth: '25px',
-                minHeight: '25px'
+                minHeight: '25px',
               }}
               onMouseOver={(e) => {
                 e.currentTarget.style.background = '#3b82f6';
@@ -112,12 +112,12 @@ const VirtualKeyboard: React.FC<{
           ))}
         </div>
       ))}
-      
+
       <div style={{
         display: 'flex',
         gap: '3px',
         marginTop: '8px',
-        justifyContent: 'center'
+        justifyContent: 'center',
       }}>
         <button
           onClick={onSpace}
@@ -129,7 +129,7 @@ const VirtualKeyboard: React.FC<{
             borderRadius: '4px',
             cursor: 'pointer',
             fontSize: '12px',
-            fontWeight: '500'
+            fontWeight: '500',
           }}
         >
           Space
@@ -144,7 +144,7 @@ const VirtualKeyboard: React.FC<{
             borderRadius: '4px',
             cursor: 'pointer',
             fontSize: '12px',
-            fontWeight: '500'
+            fontWeight: '500',
           }}
         >
           ⌫
@@ -159,7 +159,7 @@ const VirtualKeyboard: React.FC<{
             borderRadius: '4px',
             cursor: 'pointer',
             fontSize: '12px',
-            fontWeight: '500'
+            fontWeight: '500',
           }}
         >
           Clear
@@ -172,25 +172,25 @@ const VirtualKeyboard: React.FC<{
 // Enhanced Number Pad Component
 const NumberPad: React.FC<{
   onNumberClick: (num: string) => void;
-  onClear: () => void;
-  onBackspace: () => void;
-  showKeyboard: boolean;
-}> = ({ onNumberClick, onClear, onBackspace, showKeyboard }) => {
+  _onClear: () => void;
+  _onBackspace: () => void;
+  _showKeyboard: boolean;
+}> = ({ onNumberClick, _onClear, _onBackspace, _showKeyboard }) => {
   const buttons = ['7', '8', '9', '4', '5', '6', '1', '2', '3', 'C', '0', '.', '⌫'];
-  
+
   return (
     <div style={{
       background: '#1e293b',
       border: '1px solid #334155',
       borderRadius: '8px',
       padding: '15px',
-      marginTop: '10px'
+      marginTop: '10px',
     }}>
-      <div style={{ 
-        display: 'grid', 
-        gridTemplateColumns: 'repeat(3, 1fr)', 
+      <div style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(3, 1fr)',
         gap: '8px',
-        marginBottom: '8px'
+        marginBottom: '8px',
       }}>
         {buttons.slice(0, 9).map(button => (
           <button
@@ -204,7 +204,7 @@ const NumberPad: React.FC<{
               borderRadius: '6px',
               cursor: 'pointer',
               fontSize: '16px',
-              fontWeight: '500'
+              fontWeight: '500',
             }}
             onMouseOver={(e) => {
               e.currentTarget.style.background = '#3b82f6';
@@ -217,10 +217,10 @@ const NumberPad: React.FC<{
           </button>
         ))}
       </div>
-      <div style={{ 
-        display: 'grid', 
-        gridTemplateColumns: 'repeat(3, 1fr)', 
-        gap: '8px' 
+      <div style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(3, 1fr)',
+        gap: '8px',
       }}>
         {buttons.slice(9).map(button => (
           <button
@@ -234,7 +234,7 @@ const NumberPad: React.FC<{
               borderRadius: '6px',
               cursor: 'pointer',
               fontSize: '16px',
-              fontWeight: '500'
+              fontWeight: '500',
             }}
             onMouseOver={(e) => {
               e.currentTarget.style.background = button === 'C' ? '#dc2626' : button === '⌫' ? '#d97706' : '#3b82f6';
@@ -259,7 +259,6 @@ const Sales: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [loading, setLoading] = useState(true);
   const [processing, setProcessing] = useState(false);
-  const [quantityInput, setQuantityInput] = useState('');
   const [discountAmount, setDiscountAmount] = useState(0);
   const [paymentMethod, setPaymentMethod] = useState('cash');
   const [activeInput, setActiveInput] = useState<string | null>(null);
@@ -276,6 +275,7 @@ const Sales: React.FC = () => {
       const productsData = await productsAPI.getAll();
       setProducts(productsData);
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.error('Error loading products:', error);
     } finally {
       setLoading(false);
@@ -287,6 +287,7 @@ const Sales: React.FC = () => {
       const customersData = await customersAPI.getAll();
       setCustomers(customersData);
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.error('Error loading customers:', error);
     }
   };
@@ -303,10 +304,10 @@ const Sales: React.FC = () => {
         alert('Cannot add more than available stock');
         return;
       }
-      setCart(cart.map(item => 
-        item.id === product.id 
+      setCart(cart.map(item =>
+        item.id === product.id
           ? { ...item, quantity: item.quantity + 1 }
-          : item
+          : item,
       ));
     } else {
       setCart([...cart, { ...product, quantity: 1 }]);
@@ -322,9 +323,9 @@ const Sales: React.FC = () => {
       if (num === 'C') {
         setSearchTerm('');
       } else if (num === '⌫') {
-        setSearchTerm(prev => prev.slice(0, -1));
+        setSearchTerm((prev: string) => prev.slice(0, -1));
       } else {
-        setSearchTerm(prev => prev + num);
+        setSearchTerm((prev: string) => prev + num);
       }
     } else if (activeInput === 'discount') {
       if (num === 'C') {
@@ -340,26 +341,18 @@ const Sales: React.FC = () => {
         const current = discountAmount.toString();
         setDiscountAmount(parseFloat(current + num) || parseFloat(num));
       }
-    } else {
-      if (num === 'C') {
-        setQuantityInput('');
-      } else if (num === '⌫') {
-        setQuantityInput(prev => prev.slice(0, -1));
-      } else {
-        setQuantityInput(prev => prev + num);
-      }
     }
   };
 
   const handleVirtualKeyPress = (key: string) => {
     if (activeInput === 'search') {
-      setSearchTerm(prev => prev + key);
+      setSearchTerm((prev: string) => prev + key);
     }
   };
 
   const handleVirtualBackspace = () => {
     if (activeInput === 'search') {
-      setSearchTerm(prev => prev.slice(0, -1));
+      setSearchTerm((prev: string) => prev.slice(0, -1));
     }
   };
 
@@ -371,7 +364,7 @@ const Sales: React.FC = () => {
 
   const handleVirtualSpace = () => {
     if (activeInput === 'search') {
-      setSearchTerm(prev => prev + ' ');
+      setSearchTerm((prev: string) => `${prev} `);
     }
   };
 
@@ -380,14 +373,12 @@ const Sales: React.FC = () => {
       setSearchTerm('');
     } else if (activeInput === 'discount') {
       setDiscountAmount(0);
-    } else {
-      setQuantityInput('');
     }
   };
 
   const handleBackspaceInput = () => {
     if (activeInput === 'search') {
-      setSearchTerm(prev => prev.slice(0, -1));
+      setSearchTerm((prev: string) => prev.slice(0, -1));
     } else if (activeInput === 'discount') {
       const current = discountAmount.toString();
       if (current.length > 1) {
@@ -395,8 +386,6 @@ const Sales: React.FC = () => {
       } else {
         setDiscountAmount(0);
       }
-    } else {
-      setQuantityInput(prev => prev.slice(0, -1));
     }
   };
 
@@ -412,10 +401,10 @@ const Sales: React.FC = () => {
     if (quantity <= 0) {
       removeFromCart(productId);
     } else {
-      setCart(cart.map(item => 
-        item.id === productId 
+      setCart(cart.map(item =>
+        item.id === productId
           ? { ...item, quantity }
-          : item
+          : item,
       ));
     }
   };
@@ -423,32 +412,14 @@ const Sales: React.FC = () => {
   const calculateTotal = () => {
     const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
     const discount = discountAmount;
-    const afterDiscount = subtotal - discount;
-    const tax = afterDiscount * 0.08; // 8% tax
-    return { subtotal, discount, afterDiscount, tax, total: afterDiscount + tax };
-  };
-
-  const formatDateTime = (dateTimeString: string) => {
-    const date = new Date(dateTimeString);
-    return {
-      date: date.toLocaleDateString('en-LK', {
-        year: 'numeric',
-        month: '2-digit',
-        day: '2-digit'
-      }),
-      time: date.toLocaleTimeString('en-LK', {
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit',
-        hour12: false
-      })
-    };
+    const tax = (subtotal - discount) * 0.08; // 8% tax
+    return { subtotal, discount, tax, total: subtotal - discount + tax };
   };
 
   const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat('en-LK', {
       style: 'currency',
-      currency: 'LKR'
+      currency: 'LKR',
     }).format(amount);
   };
 
@@ -460,35 +431,17 @@ const Sales: React.FC = () => {
 
     setProcessing(true);
     try {
-      const { subtotal, discount, afterDiscount, tax, total } = calculateTotal();
-      const result = await salesAPI.create({
+      calculateTotal();
+      await salesAPI.create({
         customer_id: selectedCustomer?.id || null,
         items: cart.map(item => ({
           product_id: item.id,
           quantity: item.quantity,
-          unit_price: item.price
+          unit_price: item.price,
         })),
         payment_method: paymentMethod,
-        discount_amount: discount
+        discount_amount: discountAmount,
       });
-
-      // Generate receipt
-      const receipt = {
-        sale_number: result.sale_number,
-        date_time: formatDateTime(result.created_at),
-        customer: selectedCustomer?.name || 'Walk-in Customer',
-        payment_method: paymentMethod,
-        items: cart.map(item => ({
-          name: item.name,
-          quantity: item.quantity,
-          price: item.price,
-          total: item.price * item.quantity
-        })),
-        subtotal,
-        discount,
-        tax,
-        total
-      };
 
       alert('Sale completed successfully!');
       setCart([]);
@@ -496,8 +449,9 @@ const Sales: React.FC = () => {
       setDiscountAmount(0);
       setPaymentMethod('cash');
       loadProducts(); // Refresh stock levels
-    } catch (error: any) {
-      alert('Failed to process sale: ' + (error.response?.data?.error || 'Unknown error'));
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+      alert(`Failed to process sale: ${errorMessage}`);
     } finally {
       setProcessing(false);
     }
@@ -505,7 +459,7 @@ const Sales: React.FC = () => {
 
   const filteredProducts = products.filter(product =>
     product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    product.barcode.toLowerCase().includes(searchTerm.toLowerCase())
+    product.barcode.toLowerCase().includes(searchTerm.toLowerCase()),
   );
 
   const { subtotal, discount, tax, total } = calculateTotal();
@@ -527,11 +481,11 @@ const Sales: React.FC = () => {
           {/* Search and Customer Selection */}
           <div style={{ marginBottom: '20px' }}>
             {/* Touch Mode Toggle */}
-            <div style={{ 
-              display: 'flex', 
-              justifyContent: 'space-between', 
+            <div style={{
+              display: 'flex',
+              justifyContent: 'space-between',
               alignItems: 'center',
-              marginBottom: '10px'
+              marginBottom: '10px',
             }}>
               <span style={{ color: '#f1f5f9', fontSize: '14px' }}>Touch Mode:</span>
               <button
@@ -543,7 +497,7 @@ const Sales: React.FC = () => {
                   border: '1px solid #475569',
                   borderRadius: '4px',
                   cursor: 'pointer',
-                  fontSize: '12px'
+                  fontSize: '12px',
                 }}
               >
                 {touchMode ? 'ON' : 'OFF'}
@@ -569,7 +523,7 @@ const Sales: React.FC = () => {
                   color: '#f1f5f9',
                   fontSize: '16px',
                   marginBottom: '10px',
-                  cursor: touchMode ? 'pointer' : 'text'
+                  cursor: touchMode ? 'pointer' : 'text',
                 }}
               />
               {touchMode && (
@@ -586,7 +540,7 @@ const Sales: React.FC = () => {
                     borderRadius: '4px',
                     padding: '4px 8px',
                     cursor: 'pointer',
-                    fontSize: '12px'
+                    fontSize: '12px',
                   }}
                 >
                   📱
@@ -608,7 +562,7 @@ const Sales: React.FC = () => {
                 borderRadius: '6px',
                 color: '#f1f5f9',
                 fontSize: '16px',
-                marginBottom: '10px'
+                marginBottom: '10px',
               }}
             >
               <option value="">Walk-in Customer</option>
@@ -631,7 +585,7 @@ const Sales: React.FC = () => {
                 borderRadius: '6px',
                 color: '#f1f5f9',
                 fontSize: '16px',
-                marginBottom: '10px'
+                marginBottom: '10px',
               }}
             >
               <option value="cash">💵 Cash</option>
@@ -643,10 +597,10 @@ const Sales: React.FC = () => {
 
           {/* Products Grid */}
           <div style={{ flex: 1, overflowY: 'auto' }}>
-            <div style={{ 
-              display: 'grid', 
-              gridTemplateColumns: 'repeat(auto-fill, minmax(160px, 1fr))', 
-              gap: '12px' 
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fill, minmax(160px, 1fr))',
+              gap: '12px',
             }}>
               {filteredProducts.map(product => (
                 <div
@@ -659,7 +613,7 @@ const Sales: React.FC = () => {
                     padding: '12px',
                     cursor: 'pointer',
                     transition: 'all 0.2s',
-                    opacity: product.stock_quantity === 0 ? 0.5 : 1
+                    opacity: product.stock_quantity === 0 ? 0.5 : 1,
                   }}
                   onMouseOver={(e) => {
                     if (product.stock_quantity > 0) {
@@ -673,11 +627,11 @@ const Sales: React.FC = () => {
                   }}
                 >
                   <div style={{ marginBottom: '8px' }}>
-                    <div style={{ 
-                      color: '#f1f5f9', 
-                      fontSize: '13px', 
+                    <div style={{
+                      color: '#f1f5f9',
+                      fontSize: '13px',
                       fontWeight: '500',
-                      marginBottom: '4px'
+                      marginBottom: '4px',
                     }}>
                       {product.name}
                     </div>
@@ -692,9 +646,9 @@ const Sales: React.FC = () => {
                     <div style={{ color: '#3b82f6', fontWeight: 'bold', fontSize: '14px' }}>
                       {formatCurrency(product.price)}
                     </div>
-                    <div style={{ 
-                      color: product.stock_quantity <= 5 ? '#ef4444' : '#10b981', 
-                      fontSize: '10px' 
+                    <div style={{
+                      color: product.stock_quantity <= 5 ? '#ef4444' : '#10b981',
+                      fontSize: '10px',
                     }}>
                       Stock: {product.stock_quantity}
                     </div>
@@ -706,25 +660,25 @@ const Sales: React.FC = () => {
         </div>
 
         {/* Cart Section */}
-        <div style={{ 
-          width: '380px', 
-          background: '#1e293b', 
+        <div style={{
+          width: '380px',
+          background: '#1e293b',
           border: '1px solid #334155',
           borderRadius: '12px',
           padding: '15px',
           display: 'flex',
-          flexDirection: 'column'
+          flexDirection: 'column',
         }}>
           <h3 style={{ color: '#f1f5f9', marginBottom: '15px', fontSize: '16px' }}>Shopping Cart</h3>
-          
+
           {selectedCustomer && (
-            <div style={{ 
-              background: '#0f172a', 
-              padding: '8px', 
-              borderRadius: '6px', 
+            <div style={{
+              background: '#0f172a',
+              padding: '8px',
+              borderRadius: '6px',
               marginBottom: '12px',
               fontSize: '13px',
-              color: '#3b82f6'
+              color: '#3b82f6',
             }}>
               Customer: {selectedCustomer.name}
             </div>
@@ -733,27 +687,27 @@ const Sales: React.FC = () => {
           {/* Cart Items */}
           <div style={{ flex: 1, overflowY: 'auto', marginBottom: '15px', maxHeight: '200px' }}>
             {cart.length === 0 ? (
-              <div style={{ 
-                textAlign: 'center', 
-                color: '#64748b', 
+              <div style={{
+                textAlign: 'center',
+                color: '#64748b',
                 padding: '30px 0',
-                fontSize: '14px'
+                fontSize: '14px',
               }}>
                 Cart is empty
               </div>
             ) : (
               cart.map(item => (
-                <div key={item.id} style={{ 
-                  background: '#0f172a', 
-                  padding: '10px', 
-                  borderRadius: '6px', 
-                  marginBottom: '8px' 
+                <div key={item.id} style={{
+                  background: '#0f172a',
+                  padding: '10px',
+                  borderRadius: '6px',
+                  marginBottom: '8px',
                 }}>
-                  <div style={{ 
-                    display: 'flex', 
-                    justifyContent: 'space-between', 
+                  <div style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
                     alignItems: 'center',
-                    marginBottom: '6px'
+                    marginBottom: '6px',
                   }}>
                     <div style={{ color: '#f1f5f9', fontSize: '13px', fontWeight: '500' }}>
                       {item.name}
@@ -767,16 +721,16 @@ const Sales: React.FC = () => {
                         borderRadius: '4px',
                         padding: '3px 6px',
                         cursor: 'pointer',
-                        fontSize: '11px'
+                        fontSize: '11px',
                       }}
                     >
                       Remove
                     </button>
                   </div>
-                  <div style={{ 
-                    display: 'flex', 
-                    justifyContent: 'space-between', 
-                    alignItems: 'center' 
+                  <div style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
                   }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                       <button
@@ -789,16 +743,16 @@ const Sales: React.FC = () => {
                           width: '20px',
                           height: '20px',
                           cursor: 'pointer',
-                          fontSize: '12px'
+                          fontSize: '12px',
                         }}
                       >
                         -
                       </button>
-                      <span style={{ 
-                        color: '#f1f5f9', 
-                        minWidth: '25px', 
+                      <span style={{
+                        color: '#f1f5f9',
+                        minWidth: '25px',
                         textAlign: 'center',
-                        fontSize: '13px'
+                        fontSize: '13px',
                       }}>
                         {item.quantity}
                       </span>
@@ -812,7 +766,7 @@ const Sales: React.FC = () => {
                           width: '20px',
                           height: '20px',
                           cursor: 'pointer',
-                          fontSize: '12px'
+                          fontSize: '12px',
                         }}
                       >
                         +
@@ -829,11 +783,11 @@ const Sales: React.FC = () => {
 
           {/* Discount Entry */}
           {cart.length > 0 && (
-            <div style={{ 
-              background: '#0f172a', 
-              padding: '12px', 
-              borderRadius: '6px', 
-              marginBottom: '12px' 
+            <div style={{
+              background: '#0f172a',
+              padding: '12px',
+              borderRadius: '6px',
+              marginBottom: '12px',
             }}>
               <div style={{ color: '#64748b', fontSize: '13px', marginBottom: '6px' }}>
                 Discount (LKR):
@@ -854,7 +808,7 @@ const Sales: React.FC = () => {
                     borderRadius: '4px',
                     color: '#f1f5f9',
                     fontSize: '13px',
-                    cursor: touchMode ? 'pointer' : 'text'
+                    cursor: touchMode ? 'pointer' : 'text',
                   }}
                   placeholder="Enter discount amount"
                 />
@@ -872,7 +826,7 @@ const Sales: React.FC = () => {
                       borderRadius: '3px',
                       padding: '3px 6px',
                       cursor: 'pointer',
-                      fontSize: '10px'
+                      fontSize: '10px',
                     }}
                   >
                     ⌨️
@@ -885,10 +839,10 @@ const Sales: React.FC = () => {
           {/* Total and Checkout */}
           {cart.length > 0 && (
             <div>
-              <div style={{ 
-                borderTop: '1px solid #334155', 
+              <div style={{
+                borderTop: '1px solid #334155',
                 paddingTop: '12px',
-                marginBottom: '12px'
+                marginBottom: '12px',
               }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '6px' }}>
                   <span style={{ color: '#64748b', fontSize: '13px' }}>Subtotal:</span>
@@ -904,18 +858,18 @@ const Sales: React.FC = () => {
                   <span style={{ color: '#64748b', fontSize: '13px' }}>Tax (8%):</span>
                   <span style={{ color: '#f1f5f9', fontSize: '13px' }}>{formatCurrency(tax)}</span>
                 </div>
-                <div style={{ 
-                  display: 'flex', 
-                  justifyContent: 'space-between', 
-                  fontSize: '16px', 
+                <div style={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  fontSize: '16px',
                   fontWeight: 'bold',
-                  color: '#3b82f6'
+                  color: '#3b82f6',
                 }}>
                   <span>Total:</span>
                   <span>{formatCurrency(total)}</span>
                 </div>
               </div>
-              
+
               <button
                 onClick={processSale}
                 disabled={processing}
@@ -927,7 +881,7 @@ const Sales: React.FC = () => {
                   border: 'none',
                   borderRadius: '6px',
                   cursor: processing ? 'not-allowed' : 'pointer',
-                  fontSize: '14px'
+                  fontSize: '14px',
                 }}
               >
                 {processing ? 'Processing...' : `Complete Sale (${paymentMethod})`}
@@ -938,24 +892,24 @@ const Sales: React.FC = () => {
       </div>
 
       {/* Fixed Bottom Input Area */}
-      <div style={{ 
-        background: '#0f172a', 
+      <div style={{
+        background: '#0f172a',
         borderTop: '1px solid #334155',
         padding: '15px',
         display: 'flex',
         gap: '20px',
-        minHeight: '280px'
+        minHeight: '280px',
       }}>
         {/* Number Pad - Always Visible */}
         <div style={{ flex: 1 }}>
           <div style={{ color: '#f1f5f9', fontSize: '14px', marginBottom: '10px', textAlign: 'center' }}>
             Number Pad
           </div>
-          <NumberPad 
+          <NumberPad
             onNumberClick={handleNumberPadClick}
-            onClear={handleClearInput}
-            onBackspace={handleBackspaceInput}
-            showKeyboard={showVirtualKeyboard}
+            _onClear={handleClearInput}
+            _onBackspace={handleBackspaceInput}
+            _showKeyboard={showVirtualKeyboard}
           />
         </div>
 
